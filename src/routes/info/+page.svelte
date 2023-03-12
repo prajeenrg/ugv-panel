@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { client, data, setupClient, disconnectClient, Constants } from '../mqtthelper';
 	import { onMount, onDestroy } from 'svelte';
+	import NavBar from '$lib/components/NavBar.svelte';
 
 	onMount(setupClient);
 
@@ -16,6 +17,11 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Information Page</title>
+</svelte:head>
+
+<NavBar />
 <!-- {#if status !== 'connected' }
 	<p>Waiting for the MQTT Client to establish connection...</p>
 {:else} -->

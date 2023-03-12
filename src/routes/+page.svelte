@@ -1,2 +1,31 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import NavBar from '$lib/components/NavBar.svelte';
+</script>
+
+<svelte:head>
+	<title>Home</title>
+</svelte:head>
+
+<header>
+	<NavBar />
+</header>
+<div class="content">
+	<h1>Welcome to MIT UGV Control Panel</h1>
+	<p>
+		This page currently is a placeholder to access the control panel of the UGV project that we are
+		currently working on.
+	</p>
+</div>
+
+<style>
+	.content {
+		padding: 5em;
+		display: grid;
+		place-items: center;
+		font-family: 'IBM Plex Sans';
+	}
+
+	h1 {
+		margin: 1rem;
+	}
+</style>
