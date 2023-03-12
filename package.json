@@ -30,6 +30,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"mqtt": "^4.3.7"
+		"@jdiamond/mqtt-browser": "^0.1.2"
 	}
 }
