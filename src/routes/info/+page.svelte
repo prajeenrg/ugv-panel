@@ -15,16 +15,13 @@
 		await client.publish(`${Constants.TOPIC_PREFIX}/${topic}`, msg);
 		console.info('Message sent');
 	};
+
 </script>
 
 <svelte:head>
 	<title>Information Page</title>
 </svelte:head>
 
-<NavBar />
-<!-- {#if status !== 'connected' }
-	<p>Waiting for the MQTT Client to establish connection...</p>
-{:else} -->
 <p>LiDAR Data</p>
 <ul>
 	<li>Front: {$data.lidar.front} mm</li>
@@ -35,7 +32,8 @@
 
 <p>GPS Data</p>
 <ul>
-	<li>Coordinates: {$data.gps.coordinates}</li>
+	<li>Latitude: {$data.gps.latitude} deg</li>
+	<li>Longitude: {$data.gps.longitude} deg</li>
 </ul>
 
 <p>Motor Data</p>
@@ -46,10 +44,10 @@
 
 <p>Gyro Data</p>
 <ul>
-	<li>X-Axis: {$data.gyro.xAxis}</li>
-	<li>Y-Axis: {$data.gyro.yAxis}</li>
-	<li>Z-Axis: {$data.gyro.zAxis}</li>
-	<li>Acceleration: {$data.gyro.accel}</li>
+	<li>X-Axis: {$data.gyro.xAxis} dps</li>
+	<li>Y-Axis: {$data.gyro.yAxis} dps</li>
+	<li>Z-Axis: {$data.gyro.zAxis} dps</li>
+	<li>Acceleration: {$data.gyro.accel} g</li>
 </ul>
 
 <p>Send your data here</p>
@@ -59,7 +57,6 @@
 	<button on:click={handleClick}>Send</button>
 </div>
 
-<!-- {/if} -->
 <style>
 	div {
 		display: flex;

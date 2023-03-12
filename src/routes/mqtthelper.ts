@@ -3,14 +3,11 @@ import { writable } from 'svelte/store';
 
 // constant variables
 const BROKER_URL = 'wss://test.mosquitto.org:8081';
+
 const TOPIC_PREFIX = 'c83929b2-c031-11ed-afa1-0242ac120002';
-
 const TOPIC_INFO_LIDAR = `${TOPIC_PREFIX}/info/lidar`;
-
 const TOPIC_INFO_GPS = `${TOPIC_PREFIX}/info/gps`;
-
 const TOPIC_INFO_MOTOR = `${TOPIC_PREFIX}/info/motor`;
-
 const TOPIC_INFO_GYRO = `${TOPIC_PREFIX}/info/gyro`;
 
 export const client = new Client({ url: BROKER_URL });
@@ -24,7 +21,8 @@ interface LidarData {
 }
 
 interface GpsData {
-	coordinates: number;
+	latitude: number,
+	longitude: number
 }
 
 interface MotorData {
@@ -105,7 +103,8 @@ let defaultData = {
 		right: 0
 	},
 	gps: <GpsData>{
-		coordinates: 0
+		latitude: 0,
+		longitude: 0
 	},
 	motor: <MotorData>{
 		leftSpeed: 0,
