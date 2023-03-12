@@ -6,7 +6,7 @@
 	<title>Control Page</title>
 </svelte:head>
 
-<NavBar />
+<NavBar activeId={3} />
 <div class="content">
 	<h1>Welcome to MIT UGV Control Panel</h1>
 	<p>

@@ -24,6 +24,8 @@
 			url: '/control'
 		}
 	];
+
+	export let activeId: number = 0;
 </script>
 
 <nav class="navbar">
@@ -31,28 +33,39 @@
 	<div class="navitems">
 		<ul>
 			{#each items as item (item.id)}
-				<li><a href={item.url}>{item.title}</a></li>
+				{#if activeId == item.id}
+					<li><a class="active" href={item.url}>{item.title}</a></li>
+				{:else}
+					<li><a class="inactive" href={item.url}>{item.title}</a></li>
+				{/if}
 			{/each}
 		</ul>
 	</div>
 </nav>
 
 <style>
+	:root {
+		--bg-main-color: #108bf5;
+		--nav-item-active: #e3f3ff;
+		--nav-item-inactive: #8fccff;
+		--text-primary-color: #ffffff;
+	}
 	.navbar {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		background-color: crimson;
+		background-color: var(--bg-main-color);
 		padding: 1em;
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 		min-height: 1em;
 		font-family: 'IBM Plex Sans', sans-serif;
 	}
 
 	.navbar > a {
-		color: white;
+		color: var(--text-primary-color);
 		text-decoration: none;
-		font-weight: 800;
+		font-weight: bold;
 	}
 
 	.navitems > ul {
@@ -61,23 +74,25 @@
 		list-style-type: none;
 	}
 
-	.navitems > ul > li {
-		padding-left: 1em;
-		padding-right: 1em;
-	}
-
-	.navitems > ul > li > a {
-		color: gainsboro;
+	.inactive {
+		color: var(--nav-item-inactive);
 		text-decoration: none;
 		font-weight: 600;
 	}
 
-	.navitems > ul > li > a:hover {
-		color: white;
+	.active {
+		color: var(--nav-item-active);
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.inactive:hover {
+		color: var(--nav-item-active);
 		transition: cubic-bezier();
 	}
 
-	li {
-		padding: 4px;
+	.inactive,
+	.active {
+		padding: 0 0.5em 0 0.5em;
 	}
 </style>

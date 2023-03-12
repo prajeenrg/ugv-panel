@@ -7,7 +7,7 @@
 </svelte:head>
 
 <header>
-	<NavBar />
+	<NavBar activeId={1} />
 </header>
 <div class="content">
 	<h1>Welcome to MIT UGV Control Panel</h1>

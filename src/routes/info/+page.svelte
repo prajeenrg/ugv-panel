@@ -21,7 +21,7 @@
 	<title>Information Page</title>
 </svelte:head>
 
-<NavBar />
+<NavBar activeId={2} />
 <p>LiDAR Data</p>
 <ul>
 	<li>Front: {$data.lidar.front} mm</li>
