@@ -39,7 +39,6 @@ interface GyroData {
 
 export const setupClient = async () => {
 	await client.connect();
-	console.info('Connected to MQTT Broker successfully');
 	// subscriptions
 	console.info(`Connected to MQTT Broker at ${BROKER_URL} successfully`);
 	client.subscribe(TOPIC_INFO_LIDAR);
