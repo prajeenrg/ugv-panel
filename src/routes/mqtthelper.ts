@@ -2,7 +2,7 @@ import { Client } from "@jdiamond/mqtt-browser";
 import { writable } from "svelte/store";
 
 // constant variables
-const BROKER_URL = "ws://broker.emqx.io:8083/mqtt";
+const BROKER_URL = "wss://test.mosquitto.org:8081";
 const TOPIC_PREFIX = "c83929b2-c031-11ed-afa1-0242ac120002";
 
 const TOPIC_INFO_LIDAR_FRONT = `${TOPIC_PREFIX}/info/lidar/front`;
