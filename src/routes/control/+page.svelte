@@ -7,3 +7,23 @@
 </svelte:head>
 
 <NavBar />
+<div class="content">
+	<h1>Welcome to MIT UGV Control Panel</h1>
+	<p>
+		This page currently is a placeholder to access the control panel of the UGV project that we are
+		currently working on.
+	</p>
+</div>
+
+<style>
+	.content {
+		padding: 5em;
+		display: grid;
+		place-items: center;
+		font-family: 'IBM Plex Sans';
+	}
+
+	h1 {
+		margin: 1rem;
+	}
+</style>

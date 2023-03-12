@@ -21,8 +21,8 @@ interface LidarData {
 }
 
 interface GpsData {
-	latitude: number,
-	longitude: number
+	latitude: number;
+	longitude: number;
 }
 
 interface MotorData {

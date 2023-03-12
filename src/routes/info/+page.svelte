@@ -15,13 +15,13 @@
 		await client.publish(`${Constants.TOPIC_PREFIX}/${topic}`, msg);
 		console.info('Message sent');
 	};
-
 </script>
 
 <svelte:head>
 	<title>Information Page</title>
 </svelte:head>
 
+<NavBar />
 <p>LiDAR Data</p>
 <ul>
 	<li>Front: {$data.lidar.front} mm</li>
