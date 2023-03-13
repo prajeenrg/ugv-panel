@@ -9,6 +9,7 @@ const TOPIC_INFO_LIDAR = `${TOPIC_PREFIX}/info/lidar`;
 const TOPIC_INFO_GPS = `${TOPIC_PREFIX}/info/gps`;
 const TOPIC_INFO_MOTOR = `${TOPIC_PREFIX}/info/motor`;
 const TOPIC_INFO_GYRO = `${TOPIC_PREFIX}/info/gyro`;
+const TOPIC_CONTROL = `${TOPIC_PREFIX}/control`;
 
 export const client = new Client({ url: BROKER_URL });
 
@@ -45,6 +46,7 @@ export const setupClient = async () => {
 	client.subscribe(TOPIC_INFO_GPS);
 	client.subscribe(TOPIC_INFO_MOTOR);
 	client.subscribe(TOPIC_INFO_GYRO);
+	client.subscribe(TOPIC_CONTROL);
 	console.info('Subscribed to topics successfully');
 	// handle messages
 	client.on('message', handleMessages);
@@ -127,5 +129,6 @@ export const Constants = {
 	TOPIC_INFO_GPS,
 	TOPIC_INFO_GYRO,
 	TOPIC_INFO_LIDAR,
-	TOPIC_INFO_MOTOR
+	TOPIC_INFO_MOTOR,
+	TOPIC_CONTROL
 };

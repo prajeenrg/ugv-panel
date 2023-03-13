@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '@fontsource/ibm-plex-sans';
-
 	interface Item {
 		id: number;
 		title: string;
@@ -15,11 +13,6 @@
 		},
 		{
 			id: 2,
-			title: 'Info',
-			url: '/info'
-		},
-		{
-			id: 3,
 			title: 'Control',
 			url: '/control'
 		}
@@ -29,7 +22,7 @@
 </script>
 
 <nav class="navbar">
-	<a href="#">MIT UGV Control Panel</a>
+	<a href="#" class="title">MIT UGV Control Panel</a>
 	<div class="navitems">
 		<ul>
 			{#each items as item (item.id)}
@@ -59,10 +52,9 @@
 		padding: 1em;
 		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 		min-height: 1em;
-		font-family: 'IBM Plex Sans', sans-serif;
 	}
 
-	.navbar > a {
+	.title {
 		color: var(--text-primary-color);
 		text-decoration: none;
 		font-weight: bold;
@@ -77,13 +69,13 @@
 	.inactive {
 		color: var(--nav-item-inactive);
 		text-decoration: none;
-		font-weight: 600;
+		font-weight: normal;
 	}
 
 	.active {
 		color: var(--nav-item-active);
 		text-decoration: none;
-		font-weight: 600;
+		font-weight: normal;
 	}
 
 	.inactive:hover {

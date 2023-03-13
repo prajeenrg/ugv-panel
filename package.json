@@ -30,7 +30,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@fontsource/ibm-plex-sans": "^4.5.13",
 		"@jdiamond/mqtt-browser": "^0.1.2"
 	}
 }
