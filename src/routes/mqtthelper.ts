@@ -104,7 +104,7 @@ export const disconnectClient = async () => {
 };
 
 let defaultData = {
-	connected: true
+	connected: true,
 	lidar: <LidarData>{
 		front: 0,
 		back: 0,

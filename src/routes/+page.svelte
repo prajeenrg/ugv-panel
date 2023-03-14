@@ -1,9 +1,9 @@
 <script lang="ts">
 	import NavBar from '$lib/components/NavBar.svelte';
-	import rover1 from '$lib/assets/rover1.jpg';
-	import rover2 from '$lib/assets/rover2.jpg';
-	import rover3 from '$lib/assets/rover3.jpg';
-	import rover4 from '$lib/assets/rover4.jpg';
+	import rover1 from '$lib/assets/rover1.jpg?webp&h=200&metadata';
+	import rover2 from '$lib/assets/rover2.jpg?webp&h=200&metadata';
+	import rover3 from '$lib/assets/rover3.jpg?webp&h=200&metadata';
+	import rover4 from '$lib/assets/rover4.jpg?webp&h=200&metadata';
 
 	let imgs = [rover1, rover2, rover3, rover4];
 </script>
@@ -19,7 +19,7 @@
 	<h1>Welcome to MIT UGV Control Panel</h1>
 	<div class="images">
 		{#each imgs as img, i}
-			<img src={img} alt="rover picture {i + 1}" />
+			<img src={img.src} width={Math.ceil(img.width)} height={img.height} alt="rover picture {i + 1}" />
 		{/each}
 	</div>
 	<p>
@@ -33,16 +33,10 @@
 		padding: 5em;
 		display: grid;
 		place-items: center;
-		font-family: 'IBM Plex Sans';
 		text-align: center;
 	}
 
 	h1 {
 		margin: 1rem;
-	}
-
-	.images > img {
-		height: 25vh;
-		margin: 0.5em;
 	}
 </style>
