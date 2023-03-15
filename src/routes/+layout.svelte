@@ -30,8 +30,6 @@
 <slot />
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,500;1,700&display=swap');
-
 	:root {
 		--bg-main-color: #108bf5;
 		--nav-item-active: #e3f3ff;
