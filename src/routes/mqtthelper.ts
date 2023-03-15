@@ -14,30 +14,30 @@ const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection/ready`;
 
 export const client = new Client({ url: BROKER_URL });
 
-// Data interface
-interface LidarData {
+// Data types
+type LidarData = {
 	front: number;
 	back: number;
 	left: number;
 	right: number;
-}
+};
 
-interface GpsData {
+type GpsData = {
 	latitude: number;
 	longitude: number;
-}
+};
 
-interface MotorData {
+type MotorData = {
 	leftSpeed: number;
 	rightSpeed: number;
-}
+};
 
-interface GyroData {
+type GyroData = {
 	xAxis: number;
 	yAxis: number;
 	zAxis: number;
 	accel: number;
-}
+};
 
 export const setupClient = async () => {
 	await client.connect();
@@ -104,7 +104,7 @@ export const disconnectClient = async () => {
 };
 
 let defaultData = {
-	connected: true,
+	connected: false,
 	lidar: <LidarData>{
 		front: 0,
 		back: 0,

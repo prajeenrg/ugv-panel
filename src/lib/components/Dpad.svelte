@@ -59,6 +59,10 @@
 	};
 
 	const onKeyDown = (event: KeyboardEvent) => {
+		if (!isConnActive) {
+			alert('The rover is unreachable!!');
+			return;
+		}
 		switch (event.key) {
 			case 'w':
 				sendControl(controls[1]);
@@ -95,6 +99,8 @@
 				break;
 		}
 	};
+
+	export let isConnActive = false;
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
@@ -103,9 +109,17 @@
 	{#each controls as control (control.id)}
 		<button on:click={() => sendControl(control)}>{control.label}</button>
 	{/each}
+	<div
+		class="status"
+		style:background={isConnActive ? 'var(--status-active)' : 'var(--status-inactive)'}
+	/>
 </div>
 
 <style>
+	:root {
+		--status-active: hsl(120, 80%, 55%);
+		--status-inactive: hsl(0, 80%, 55%);
+	}
 	.content {
 		padding: 1em;
 		display: grid;
@@ -114,22 +128,20 @@
 		grid-template-rows: 7em 7em 7em;
 	}
 
+	.status {
+		width: 5em;
+		height: 5em;
+		padding: 1em;
+		transition: cubic-bezier();
+		border: 2px solid rgba(0, 0, 0, 0.15);
+		border-radius: 4px;
+	}
+
 	button {
 		width: 5em;
 		height: 5em;
 		margin: 1em;
-		/* background: rgb(255, 255, 255);
-		border: 2px solid rgb(122, 122, 122);
-		border-radius: 8px;
-		outline: none; */
 		font-weight: bold;
 		font-size: 18px;
 	}
-
-	/* button:active {
-		background: royalblue;
-		transition: cubic-bezier();
-		border: 2px solid rgb(0, 0, 0);
-		box-shadow: 0 0 2px 0 rgb(0, 0, 0);
-	} */
 </style>
