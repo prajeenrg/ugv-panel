@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	export const appTitle = 'MIT UGV Control Panel';
 
 	export const navlinks = [
@@ -13,8 +14,6 @@
 			href: '/control'
 		}
 	];
-
-	export let menu = 1;
 </script>
 
 <nav>
@@ -22,11 +21,7 @@
 	<ul>
 		{#each navlinks as navlink (navlink.id)}
 			<li>
-				<a
-					href={navlink.href}
-					class:active={menu == navlink.id}
-					on:click={() => (menu = navlink.id)}>{navlink.name}</a
-				>
+				<a href={navlink.href} class:active={$page.url.pathname == navlink.href}>{navlink.name}</a>
 			</li>
 		{/each}
 	</ul>

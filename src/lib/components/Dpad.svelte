@@ -118,18 +118,18 @@
 		width: 5em;
 		height: 5em;
 		margin: 1em;
-		background: rgb(255, 255, 255);
+		/* background: rgb(255, 255, 255);
 		border: 2px solid rgb(122, 122, 122);
 		border-radius: 8px;
-		outline: none;
+		outline: none; */
 		font-weight: bold;
 		font-size: 18px;
 	}
 
-	button:active {
+	/* button:active {
 		background: royalblue;
 		transition: cubic-bezier();
 		border: 2px solid rgb(0, 0, 0);
 		box-shadow: 0 0 2px 0 rgb(0, 0, 0);
-	}
+	} */
 </style>
