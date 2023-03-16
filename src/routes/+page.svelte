@@ -41,8 +41,11 @@
 		padding: 4em;
 		display: flex;
 		align-items: center;
-		text-align: center;
 		flex-direction: column;
+	}
+
+	h1 {
+		text-align: center;
 	}
 
 	.images {
@@ -61,6 +64,5 @@
 	.images ~ p {
 		padding: 1em;
 		padding-bottom: 0em;
-		text-align: justify;
 	}
 </style>

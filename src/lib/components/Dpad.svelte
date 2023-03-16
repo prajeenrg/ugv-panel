@@ -54,15 +54,15 @@
 	];
 
 	const sendControl = async (control: Control) => {
+		if (!isConnActive) {
+			alert('The rover is unreachable!!');
+			return;
+		}
 		await client.publish(Constants.TOPIC_CONTROL, JSON.stringify(control));
 		console.info(`Control event ${control.label} has been sent.`);
 	};
 
 	const onKeyDown = (event: KeyboardEvent) => {
-		if (!isConnActive) {
-			alert('The rover is unreachable!!');
-			return;
-		}
 		switch (event.key) {
 			case 'w':
 				sendControl(controls[1]);

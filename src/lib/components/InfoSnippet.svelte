@@ -9,7 +9,7 @@
 		{#each contents as item, i (i)}
 			<div>
 				<p>{item[1]}</p>
-				{item[0]}
+				<p>{item[0]}</p>
 			</div>
 		{/each}
 	</div>
@@ -20,25 +20,35 @@
 		display: flex;
 		width: 100%;
 		flex-direction: column-reverse;
-		align-items: center;
 		padding: 8px;
 		margin: 8px;
-		border-radius: 4px;
-		border: 2px solid hsl(0, 0%, 70%);
+		gap: 8px;
+		min-width: 400px;
+		border-radius: 8px;
+		text-align: center;
+		border: 2px solid hsl(0, 0%, 30%);
+		color: hsl(0, 0%, 80%);
+		background-color: hsl(0, 0%, 15%);
+		text-transform: uppercase;
 	}
 
 	.info {
 		display: flex;
-		justify-content: space-around;
-		gap: 1em;
+		gap: 8px;
+		color: hsl(0, 0%, 60%);
 	}
 
 	.info div {
 		display: inline;
 		padding: 0.5em;
+		width: 100%;
 		font-size: 20px;
+		background-color: hsl(0, 0%, 10%);
 		border-radius: 4px;
-		border: 2px solid hsl(0, 0%, 70%);
 		text-align: center;
+	}
+
+	.info p:last-child {
+		font-size: 10px;
 	}
 </style>
