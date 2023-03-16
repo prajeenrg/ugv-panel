@@ -20,6 +20,15 @@
 		<InfoSnippet title="motor" contents={Object.entries($data.motor)} />
 		<InfoSnippet title="gyro" contents={Object.entries($data.gyro)} />
 	</div>
+	<div class="map">
+		<iframe
+			title="map"
+			src="https://maps.google.com/maps?hl=en&q={$data.gps.latitude},{$data.gps
+				.longitude}&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+		/>
+	</div>
 	<div class="dpadbox">
 		<Dpad isConnActive={$data.connected} />
 	</div>
@@ -27,15 +36,24 @@
 
 <style>
 	.content {
-		display: flex;
-		gap: 1em;
+		display: grid;
 		padding: 1em;
-		justify-content: space-around;
+		justify-items: center;
+		align-items: center;
 	}
 
-	@media only screen and (max-width: 600px) {
+	iframe,
+	.map {
+		width: 100%;
+		height: 100%;
+		border: none;
+		border-radius: 8px;
+	}
+
+	@media only screen and (min-width: 600px) {
 		.content {
-			flex-direction: column;
+			grid-template-columns: 1fr 1fr 1fr;
+			gap: 8px 8px;
 		}
 	}
 
