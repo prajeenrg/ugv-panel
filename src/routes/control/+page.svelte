@@ -21,7 +21,7 @@
 		<InfoSnippet title="gyro" contents={Object.entries($data.gyro)} />
 	</div>
 	<div class="dpadbox">
-		<Dpad />
+		<Dpad isConnActive={$data.connected} />
 	</div>
 </div>
 
@@ -30,11 +30,10 @@
 		display: flex;
 		gap: 1em;
 		padding: 1em;
-		width: 90vw;
 		justify-content: space-around;
 	}
 
-	@media only screen and (max-width: 760px) {
+	@media only screen and (max-width: 600px) {
 		.content {
 			flex-direction: column;
 		}

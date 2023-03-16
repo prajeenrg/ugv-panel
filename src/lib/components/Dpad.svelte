@@ -9,47 +9,47 @@
 	let controls: Control[] = [
 		{
 			id: 1,
-			label: 'NWD'
+			label: '\u2196'
 		},
 		{
 			id: 2,
-			label: 'ND'
+			label: '\u2191'
 		},
 		{
 			id: 3,
-			label: 'NED'
+			label: '\u2197'
 		},
 		{
 			id: 4,
-			label: 'WD'
+			label: '\u2190'
 		},
 		{
 			id: 5,
-			label: 'STOP'
+			label: '\u25A0'
 		},
 		{
 			id: 6,
-			label: 'ED'
+			label: '\u2192'
 		},
 		{
 			id: 7,
-			label: 'SWD'
+			label: '\u2199'
 		},
 		{
 			id: 8,
-			label: 'SD'
+			label: '\u2193'
 		},
 		{
 			id: 9,
-			label: 'SED'
+			label: '\u2198'
 		},
 		{
 			id: 10,
-			label: 'CW'
+			label: '\u21BB'
 		},
 		{
 			id: 11,
-			label: 'CCW'
+			label: '\u21BA'
 		}
 	];
 
@@ -96,7 +96,7 @@
 		}
 	};
 
-	export let isConnActive: boolean;
+	export let isConnActive = true;
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
@@ -146,15 +146,18 @@
 		font-size: 18px;
 		vertical-align: middle;
 		border-radius: 8px;
+		font-size: 24pt;
 		background-color: hsl(0, 0%, 15%);
 		color: hsl(0, 0%, 60%);
 		transition: cubic-bezier();
 	}
 
-	.button:hover {
-		background-color: hsl(0, 0%, 10%);
-		color: hsl(0, 0%, 75%);
-		transition: cubic-bezier();
+	@media (hover: hover) {
+		.button:hover {
+			background-color: hsl(0, 0%, 10%);
+			color: hsl(0, 0%, 75%);
+			transition: cubic-bezier();
+		}
 	}
 
 	.button:active {

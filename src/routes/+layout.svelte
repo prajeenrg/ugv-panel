@@ -36,7 +36,7 @@
 
 <style>
 	:root {
-		--bg-main-color: #430EE1;
+		--bg-main-color: #430ee1;
 		--nav-item-active: hsla(0, 0%, 100%, 0.87);
 		--nav-item-inactive: hsla(0, 0%, 100%, 0.6);
 		--text-primary-color: hsla(0, 0%, 100%, 1);
