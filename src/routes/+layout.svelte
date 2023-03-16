@@ -48,7 +48,7 @@
 	}
 
 	nav {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		width: 100%;
 		min-height: 60px;
