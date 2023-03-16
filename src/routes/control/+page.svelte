@@ -21,7 +21,7 @@
 		<InfoSnippet title="gyro" contents={Object.entries($data.gyro)} />
 	</div>
 	<div class="dpadbox">
-		<Dpad isConnActive={$data.connected} />
+		<Dpad />
 	</div>
 </div>
 

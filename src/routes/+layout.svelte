@@ -21,7 +21,12 @@
 	<ul>
 		{#each navlinks as navlink (navlink.id)}
 			<li>
-				<a href={navlink.href} class:active={$page.url.pathname == navlink.href}>{navlink.name}</a>
+				<a
+					href={navlink.href}
+					style:color={$page.url.pathname == navlink.href
+						? 'var(--nav-item-active)'
+						: 'var(--nav-item-inactive)'}>{navlink.name}</a
+				>
 			</li>
 		{/each}
 	</ul>
@@ -31,27 +36,27 @@
 
 <style>
 	:root {
-		--bg-main-color: #108bf5;
-		--nav-item-active: #e3f3ff;
-		--nav-item-inactive: #8fccff;
-		--text-primary-color: #ffffff;
+		--bg-main-color: #430EE1;
+		--nav-item-active: hsla(0, 0%, 100%, 0.87);
+		--nav-item-inactive: hsla(0, 0%, 100%, 0.6);
+		--text-primary-color: hsla(0, 0%, 100%, 1);
 	}
 
 	:global(*) {
 		margin: 0;
-		font-family: 'Poppins', 'Helvetica', sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		box-sizing: border-box;
 	}
 
 	:global(body) {
-		margin-top: 72px;
+		margin-top: 84px;
 	}
 
 	nav {
 		position: fixed;
 		top: 0;
 		width: 100%;
-		min-height: 60px;
+		height: 72px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -60,11 +65,9 @@
 		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
 		padding: 1em;
 		box-sizing: border-box;
-	}
-
-	nav p {
 		color: var(--text-primary-color);
 		font-weight: bold;
+		font-size: 18px;
 	}
 
 	nav li {
@@ -72,12 +75,9 @@
 	}
 
 	nav a {
+		font-weight: normal;
+		font-size: 16px;
 		text-decoration: none;
-		color: var(--nav-item-inactive);
 		padding: 0 0.5em 0 0.5em;
-	}
-
-	nav .active {
-		color: var(--nav-item-active);
 	}
 </style>

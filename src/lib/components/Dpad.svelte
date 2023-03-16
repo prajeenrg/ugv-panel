@@ -54,10 +54,6 @@
 	];
 
 	const sendControl = async (control: Control) => {
-		if (!isConnActive) {
-			alert('The rover is unreachable!!');
-			return;
-		}
 		await client.publish(Constants.TOPIC_CONTROL, JSON.stringify(control));
 		console.info(`Control event ${control.label} has been sent.`);
 	};
@@ -100,14 +96,16 @@
 		}
 	};
 
-	export let isConnActive = false;
+	export let isConnActive: boolean;
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
 
 <div class="content">
 	{#each controls as control (control.id)}
-		<button on:click={() => sendControl(control)}>{control.label}</button>
+		<div class="button" on:keydown={() => {}} on:click={() => sendControl(control)}>
+			{control.label}
+		</div>
 	{/each}
 	<div
 		class="status"
@@ -124,24 +122,43 @@
 		padding: 1em;
 		display: grid;
 		place-items: center;
-		grid-template-columns: 7em 7em 7em;
-		grid-template-rows: 7em 7em 7em;
+		grid-template-columns: 1fr 1fr 1fr;
+		row-gap: 8px;
+		column-gap: 8px;
 	}
 
 	.status {
-		width: 5em;
-		height: 5em;
-		padding: 1em;
+		width: 100%;
+		height: 100%;
 		transition: cubic-bezier();
 		border: 2px solid rgba(0, 0, 0, 0.15);
-		border-radius: 4px;
+		border-radius: 8px;
 	}
 
-	button {
-		width: 5em;
-		height: 5em;
-		margin: 1em;
+	.button {
+		display: grid;
+		place-items: center;
+		width: 100px;
+		height: 100px;
 		font-weight: bold;
+		text-align: center;
+		color: azure;
 		font-size: 18px;
+		vertical-align: middle;
+		border-radius: 8px;
+		background-color: hsl(0, 0%, 15%);
+		color: hsl(0, 0%, 60%);
+		transition: cubic-bezier();
+	}
+
+	.button:hover {
+		background-color: hsl(0, 0%, 10%);
+		color: hsl(0, 0%, 75%);
+		transition: cubic-bezier();
+	}
+
+	.button:active {
+		color: hsl(0, 0%, 90%);
+		background-color: hsl(0, 0%, 20%);
 	}
 </style>
