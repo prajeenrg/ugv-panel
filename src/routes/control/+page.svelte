@@ -24,7 +24,7 @@
 		<iframe
 			title="map"
 			src="https://maps.google.com/maps?hl=en&q={$data.gps.latitude},{$data.gps
-				.longitude}&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+				.longitude}&t=k&z=20&ie=UTF8&iwloc=B&output=embed"
 			loading="lazy"
 			referrerpolicy="no-referrer-when-downgrade"
 		/>
