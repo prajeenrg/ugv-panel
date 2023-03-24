@@ -18,7 +18,8 @@
 		<InfoSnippet title="lidar" contents={Object.entries($data.lidar)} />
 		<InfoSnippet title="gps" contents={Object.entries($data.gps)} />
 		<InfoSnippet title="motor" contents={Object.entries($data.motor)} />
-		<InfoSnippet title="gyro" contents={Object.entries($data.gyro)} />
+		<InfoSnippet title="gyroscope" contents={Object.entries($data.gyro)} />
+		<InfoSnippet title="accelerometer" contents={Object.entries($data.accel)} />
 	</div>
 	<div class="map">
 		<iframe
