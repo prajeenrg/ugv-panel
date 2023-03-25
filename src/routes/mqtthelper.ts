@@ -1,4 +1,5 @@
 import { Client } from '@jdiamond/mqtt-browser';
+import { update_await_block_branch } from 'svelte/internal';
 import { writable } from 'svelte/store';
 
 // constant variables
@@ -11,7 +12,7 @@ const TOPIC_INFO_MOTOR = `${TOPIC_PREFIX}/info/motor`;
 const TOPIC_INFO_GYRO = `${TOPIC_PREFIX}/info/gyro`;
 const TOPIC_INFO_ACCEL = `${TOPIC_PREFIX}/info/accel`;
 const TOPIC_CONTROL = `${TOPIC_PREFIX}/control`;
-const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection/ready`;
+const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection`;
 
 export const client = new Client({ url: BROKER_URL });
 
@@ -66,40 +67,22 @@ const handleMessages = (topic: string, message: any) => {
 	try {
 		switch (topic) {
 			case TOPIC_INFO_GPS:
-				update((curr) => {
-					curr.gps = JSON.parse(msg);
-					return curr;
-				});
+				gps.update((_) => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_GYRO:
-				update((curr) => {
-					curr.gyro = JSON.parse(msg);
-					return curr;
-				});
+				gyro.update((_) => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_ACCEL:
-				update((curr) => {
-					curr.accel = JSON.parse(msg);
-					return curr;
-				});
+				accel.update((_) => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_LIDAR:
-				update((curr) => {
-					curr.lidar = JSON.parse(msg);
-					return curr;
-				});
+				lidar.update((_) => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_MOTOR:
-				update((curr) => {
-					curr.motor = JSON.parse(msg);
-					return curr;
-				});
+				motor.update((_) => JSON.parse(msg));
 				break;
 			case TOPIC_CONNECT_READY:
-				update((curr) => {
-					curr.connected = JSON.parse(msg).connected;
-					return curr;
-				});
+				connection.update((_) => JSON.parse(msg));
 				break;
 			default:
 				console.info('Unknown topic...');
@@ -116,37 +99,36 @@ export const disconnectClient = async () => {
 	console.info('Disconnected from MQTT Broker');
 };
 
-let defaultData = {
-	connected: false,
-	lidar: <LidarData>{
-		front: 0,
-		back: 0,
-		left: 0,
-		right: 0
-	},
-	gps: <GpsData>{
-		latitude: 0,
-		longitude: 0
-	},
-	motor: <MotorData>{
-		leftSpeed: 0,
-		rightSpeed: 0
-	},
-	gyro: <GyroData>{
-		gyroX: 0,
-		gyroY: 0,
-		gyroZ: 0
-	},
-	accel: <AccelData>{
-		accelX: 0,
-		accelY: 0,
-		accelZ: 0
-	}
-};
+export const connection = writable(false);
 
-const { set, update, subscribe } = writable(defaultData);
+export const lidar = writable(<LidarData>{
+	front: 0,
+	back: 0,
+	left: 0,
+	right: 0
+});
 
-export const data = { subscribe };
+export const gyro = writable(<GyroData>{
+	gyroX: 0,
+	gyroY: 0,
+	gyroZ: 0
+});
+
+export const gps = writable(<GpsData>{
+	latitude: 0,
+	longitude: 0
+});
+
+export const motor = writable(<MotorData>{
+	leftSpeed: 0,
+	rightSpeed: 0
+});
+
+export const accel = writable(<AccelData>{
+	accelX: 0,
+	accelY: 0,
+	accelZ: 0
+});
 
 export const Constants = {
 	BROKER_URL,

@@ -1,5 +1,14 @@
 <script lang="ts">
-	import { data, setupClient, disconnectClient } from '../mqtthelper';
+	import {
+		connection,
+		lidar,
+		gps,
+		gyro,
+		accel,
+		motor,
+		setupClient,
+		disconnectClient
+	} from '../mqtthelper';
 	import { onMount, onDestroy } from 'svelte';
 	import Dpad from '$lib/components/Dpad.svelte';
 	import InfoSnippet from '$lib/components/InfoSnippet.svelte';
@@ -15,23 +24,22 @@
 
 <div class="content">
 	<div class="infobox">
-		<InfoSnippet title="lidar" contents={Object.entries($data.lidar)} />
-		<InfoSnippet title="gps" contents={Object.entries($data.gps)} />
-		<InfoSnippet title="motor" contents={Object.entries($data.motor)} />
-		<InfoSnippet title="gyroscope" contents={Object.entries($data.gyro)} />
-		<InfoSnippet title="accelerometer" contents={Object.entries($data.accel)} />
+		<InfoSnippet title="lidar" contents={Object.entries($lidar)} />
+		<InfoSnippet title="gps" contents={Object.entries($gps)} />
+		<InfoSnippet title="motor" contents={Object.entries($motor)} />
+		<InfoSnippet title="gyroscope" contents={Object.entries($gyro)} />
+		<InfoSnippet title="accelerometer" contents={Object.entries($accel)} />
 	</div>
 	<div class="map">
 		<iframe
 			title="map"
-			src="https://maps.google.com/maps?hl=en&q={$data.gps.latitude},{$data.gps
-				.longitude}&t=k&z=20&ie=UTF8&iwloc=B&output=embed"
+			src="https://maps.google.com/maps?hl=en&q={$gps.latitude},{$gps.longitude}&t=k&z=20&ie=UTF8&iwloc=B&output=embed"
 			loading="lazy"
 			referrerpolicy="no-referrer-when-downgrade"
 		/>
 	</div>
 	<div class="dpadbox">
-		<Dpad isConnActive={$data.connected} />
+		<Dpad bind:isConnActive={$connection} />
 	</div>
 </div>
 
