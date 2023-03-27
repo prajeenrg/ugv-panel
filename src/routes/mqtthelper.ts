@@ -9,8 +9,9 @@ const TOPIC_INFO_LIDAR = `${TOPIC_PREFIX}/info/lidar`;
 const TOPIC_INFO_GPS = `${TOPIC_PREFIX}/info/gps`;
 const TOPIC_INFO_MOTOR = `${TOPIC_PREFIX}/info/motor`;
 const TOPIC_INFO_GYRO = `${TOPIC_PREFIX}/info/gyro`;
+const TOPIC_INFO_ACCEL = `${TOPIC_PREFIX}/info/accel`;
 const TOPIC_CONTROL = `${TOPIC_PREFIX}/control`;
-const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection/ready`;
+const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection`;
 
 export const client = new Client({ url: BROKER_URL });
 
@@ -33,10 +34,15 @@ type MotorData = {
 };
 
 type GyroData = {
-	xAxis: number;
-	yAxis: number;
-	zAxis: number;
-	accel: number;
+	gyroX: number;
+	gyroY: number;
+	gyroZ: number;
+};
+
+type AccelData = {
+	accelX: number;
+	accelY: number;
+	accelZ: number;
 };
 
 export const setupClient = async () => {
@@ -47,6 +53,7 @@ export const setupClient = async () => {
 	client.subscribe(TOPIC_INFO_GPS);
 	client.subscribe(TOPIC_INFO_MOTOR);
 	client.subscribe(TOPIC_INFO_GYRO);
+	client.subscribe(TOPIC_INFO_ACCEL);
 	client.subscribe(TOPIC_CONNECT_READY);
 	console.info('Subscribed to topics successfully');
 	// handle messages
@@ -58,35 +65,23 @@ const handleMessages = (topic: string, message: any) => {
 	console.log(`Received ${msg} on topic ${topic}`);
 	try {
 		switch (topic) {
+			case TOPIC_INFO_ACCEL:
+				accel.update(() => JSON.parse(msg));
+				break;
 			case TOPIC_INFO_GPS:
-				update((curr) => {
-					curr.gps = JSON.parse(msg);
-					return curr;
-				});
+				gps.update(() => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_GYRO:
-				update((curr) => {
-					curr.gyro = JSON.parse(msg);
-					return curr;
-				});
+				gyro.update(() => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_LIDAR:
-				update((curr) => {
-					curr.lidar = JSON.parse(msg);
-					return curr;
-				});
+				lidar.update(() => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_MOTOR:
-				update((curr) => {
-					curr.motor = JSON.parse(msg);
-					return curr;
-				});
+				motor.update(() => JSON.parse(msg));
 				break;
 			case TOPIC_CONNECT_READY:
-				update((curr) => {
-					curr.connected = JSON.parse(msg).connected;
-					return curr;
-				});
+				connection.update(() => JSON.parse(msg));
 				break;
 			default:
 				console.info('Unknown topic...');
@@ -103,39 +98,43 @@ export const disconnectClient = async () => {
 	console.info('Disconnected from MQTT Broker');
 };
 
-let defaultData = {
-	connected: false,
-	lidar: <LidarData>{
-		front: 0,
-		back: 0,
-		left: 0,
-		right: 0
-	},
-	gps: <GpsData>{
-		latitude: 0,
-		longitude: 0
-	},
-	motor: <MotorData>{
-		leftSpeed: 0,
-		rightSpeed: 0
-	},
-	gyro: <GyroData>{
-		xAxis: 0,
-		yAxis: 0,
-		zAxis: 0,
-		accel: 0
-	}
-};
+export const connection = writable(false);
 
-const { set, update, subscribe } = writable(defaultData);
+export const accel = writable(<AccelData>{
+	accelX: 0,
+	accelY: 0,
+	accelZ: 0
+});
 
-export const data = { subscribe };
+export const gyro = writable(<GyroData>{
+	gyroX: 0,
+	gyroY: 0,
+	gyroZ: 0
+});
+
+export const gps = writable(<GpsData>{
+	latitude: 0,
+	longitude: 0
+});
+
+export const motor = writable(<MotorData>{
+	leftSpeed: 0,
+	rightSpeed: 0
+});
+
+export const lidar = writable(<LidarData>{
+	front: 0,
+	back: 0,
+	left: 0,
+	right: 0
+});
 
 export const Constants = {
 	BROKER_URL,
 	TOPIC_PREFIX,
 	TOPIC_INFO_GPS,
 	TOPIC_INFO_GYRO,
+	TOPIC_INFO_ACCEL,
 	TOPIC_INFO_LIDAR,
 	TOPIC_INFO_MOTOR,
 	TOPIC_CONTROL,
