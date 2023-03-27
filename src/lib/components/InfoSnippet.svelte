@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let title = '';
-	export let contents: [string, number][] = [];
+	export let contents: [string, string | number][] = [];
 </script>
 
 <div class="infobox">

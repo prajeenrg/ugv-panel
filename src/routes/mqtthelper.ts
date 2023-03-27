@@ -10,6 +10,7 @@ const TOPIC_INFO_GPS = `${TOPIC_PREFIX}/info/gps`;
 const TOPIC_INFO_MOTOR = `${TOPIC_PREFIX}/info/motor`;
 const TOPIC_INFO_GYRO = `${TOPIC_PREFIX}/info/gyro`;
 const TOPIC_INFO_ACCEL = `${TOPIC_PREFIX}/info/accel`;
+const TOPIC_INFO_NETWORK = `${TOPIC_PREFIX}/info/network`;
 const TOPIC_CONTROL = `${TOPIC_PREFIX}/control`;
 const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection`;
 
@@ -43,6 +44,16 @@ type AccelData = {
 	accelX: number;
 	accelY: number;
 	accelZ: number;
+};
+
+type NetworkData = {
+	strength: number;
+	operator: string;
+	localIP: string;
+	voltage: number;
+	imei: string;
+	imsi: string;
+	ccid: string;
 };
 
 export const setupClient = async () => {
@@ -79,6 +90,9 @@ const handleMessages = (topic: string, message: any) => {
 				break;
 			case TOPIC_INFO_MOTOR:
 				motor.update(() => JSON.parse(msg));
+				break;
+			case TOPIC_INFO_NETWORK:
+				network.update(() => JSON.parse(msg));
 				break;
 			case TOPIC_CONNECT_READY:
 				connection.update(() => JSON.parse(msg));
@@ -127,6 +141,16 @@ export const lidar = writable(<LidarData>{
 	back: 0,
 	left: 0,
 	right: 0
+});
+
+export const network = writable(<NetworkData>{
+	strength: 0,
+	operator: '-',
+	localIP: '-',
+	voltage: 0,
+	imei: '-',
+	imsi: '-',
+	ccid: '-'
 });
 
 export const Constants = {

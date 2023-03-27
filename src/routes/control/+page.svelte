@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { setupClient, disconnectClient } from '../mqtthelper';
-	import {connection, accel, gps, gyro, lidar, motor } from '../mqtthelper';
+	import { connection, accel, gps, gyro, lidar, motor, network } from '../mqtthelper';
 	import { onMount, onDestroy } from 'svelte';
 	import Dpad from '$lib/components/Dpad.svelte';
 	import InfoSnippet from '$lib/components/InfoSnippet.svelte';
@@ -22,14 +22,14 @@
 		<InfoSnippet title="gyro" contents={Object.entries($gyro)} />
 		<InfoSnippet title="Accelerometer" contents={Object.entries($accel)} />
 	</div>
-	<div class="map">
+	<div class="mid">
 		<iframe
 			title="map"
-			src="https://maps.google.com/maps?hl=en&q={$gps.latitude},{$gps
-				.longitude}&t=k&z=20&ie=UTF8&iwloc=B&output=embed"
+			src="https://maps.google.com/maps?hl=en&q={$gps.latitude},{$gps.longitude}&t=k&z=20&ie=UTF8&iwloc=B&output=embed"
 			loading="lazy"
 			referrerpolicy="no-referrer-when-downgrade"
 		/>
+		<InfoSnippet title="Network" contents={Object.entries($network)} />
 	</div>
 	<div class="dpadbox">
 		<Dpad bind:isConnActive={$connection} />
@@ -44,11 +44,16 @@
 		align-items: center;
 	}
 
-	iframe,
-	.map {
+	.mid {
 		width: 100%;
 		height: 100%;
+	}
+
+	.mid > iframe {
+		width: 100%;
+		height: 75%;
 		border: none;
+		margin: 0.5em;
 		border-radius: 8px;
 	}
 
