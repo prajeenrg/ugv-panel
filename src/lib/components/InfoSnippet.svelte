@@ -16,6 +16,12 @@
 </div>
 
 <style>
+	:root {
+		--info-bar-bg: hsl(0deg, 0%, 100%);
+		--info-box-bg: hsl(0deg, 0%, 92%);
+		--info-bar-text-color: hsl(0deg, 0%, 35%);
+		--info-box-text-color: hsl(0deg, 0%, 5%);
+	}
 	.infobox {
 		display: flex;
 		width: 100%;
@@ -24,18 +30,18 @@
 		margin: 8px;
 		gap: 8px;
 		min-width: 400px;
-		border-radius: 8px;
 		text-align: center;
-		border: 2px solid hsl(0, 0%, 30%);
-		color: hsl(0, 0%, 80%);
-		background-color: hsl(0, 0%, 15%);
+		border-radius: 0.5em;
+		box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+		color: var(--info-bar-text-color);
+		background-color: var(--info-bar-bg);
 		text-transform: uppercase;
 	}
 
 	.info {
 		display: flex;
 		gap: 8px;
-		color: hsl(0, 0%, 60%);
+		color: var(--info-bar-text-color);
 	}
 
 	.info div {
@@ -43,7 +49,7 @@
 		padding: 0.5em;
 		width: 100%;
 		font-size: 20px;
-		background-color: hsl(0, 0%, 10%);
+		background-color: var(--info-box-bg);
 		border-radius: 4px;
 		text-align: center;
 	}

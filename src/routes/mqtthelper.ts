@@ -51,9 +51,6 @@ type NetworkData = {
 	operator: string;
 	localIP: string;
 	voltage: number;
-	imei: string;
-	imsi: string;
-	ccid: string;
 };
 
 export const setupClient = async () => {
@@ -147,10 +144,7 @@ export const network = writable(<NetworkData>{
 	strength: 0,
 	operator: '-',
 	localIP: '-',
-	voltage: 0,
-	imei: '-',
-	imsi: '-',
-	ccid: '-'
+	voltage: 0
 });
 
 export const Constants = {

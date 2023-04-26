@@ -17,10 +17,10 @@
 <div class="content">
 	<div class="infobox">
 		<InfoSnippet title="lidar" contents={Object.entries($lidar)} />
-		<InfoSnippet title="gps" contents={Object.entries($gps)} />
 		<InfoSnippet title="motor" contents={Object.entries($motor)} />
 		<InfoSnippet title="gyro" contents={Object.entries($gyro)} />
 		<InfoSnippet title="Accelerometer" contents={Object.entries($accel)} />
+		<InfoSnippet title="Network" contents={Object.entries($network)} />
 	</div>
 	<div class="mid">
 		<iframe
@@ -29,7 +29,6 @@
 			loading="lazy"
 			referrerpolicy="no-referrer-when-downgrade"
 		/>
-		<InfoSnippet title="Network" contents={Object.entries($network)} />
 	</div>
 	<div class="dpadbox">
 		<Dpad bind:isConnActive={$connection} />
@@ -44,17 +43,25 @@
 		align-items: center;
 	}
 
+	.infobox {
+		display: flex;
+		height: 100%;
+		widows: 100%;
+		justify-content: space-evenly;
+		flex-direction: column;
+	}
+
 	.mid {
 		width: 100%;
-		height: 100%;
+		height: 75vh;
 	}
 
 	.mid > iframe {
 		width: 100%;
-		height: 75%;
+		height: 100%;
 		border: none;
+		box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 		margin: 0.5em;
-		border-radius: 8px;
 	}
 
 	@media only screen and (min-width: 600px) {
@@ -65,7 +72,7 @@
 	}
 
 	.dpadbox {
-		display: grid;
-		place-items: center;
+		width: 100%;
+		height: 100%;
 	}
 </style>

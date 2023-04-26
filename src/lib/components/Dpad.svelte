@@ -119,12 +119,13 @@
 		--status-inactive: hsl(0, 80%, 55%);
 	}
 	.content {
-		padding: 1em;
+		height: 100%;
+		width: 100%;
+		padding: 2em;
 		display: grid;
 		place-items: center;
 		grid-template-columns: 1fr 1fr 1fr;
-		row-gap: 8px;
-		column-gap: 8px;
+		gap: 16px;
 	}
 
 	.status {
@@ -138,24 +139,24 @@
 	.button {
 		display: grid;
 		place-items: center;
-		width: 100px;
-		height: 100px;
+		width: 100%;
+		height: 100%;
 		font-weight: bold;
 		text-align: center;
-		color: azure;
 		font-size: 18px;
 		vertical-align: middle;
 		border-radius: 8px;
 		font-size: 24pt;
-		background-color: hsl(0, 0%, 15%);
-		color: hsl(0, 0%, 60%);
+		box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+		background-color: hsl(0, 0%, 90%);
+		color: hsl(0, 0%, 40%);
 		transition: cubic-bezier();
 	}
 
 	@media (hover: hover) {
 		.button:hover {
-			background-color: hsl(0, 0%, 10%);
-			color: hsl(0, 0%, 75%);
+			background-color: hsl(0, 0%, 98%);
+			color: hsl(0, 0%, 25%);
 			transition: cubic-bezier();
 		}
 	}
