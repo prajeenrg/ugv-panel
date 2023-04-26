@@ -1,8 +1,9 @@
 <script lang="ts">
-	import rover1 from '$lib/assets/rover1.jpg?webp&h=200&w=240&fit=cover&metadata';
-	import rover2 from '$lib/assets/rover2.jpg?webp&h=200&w=240&fit=cover&metadata';
-	import rover3 from '$lib/assets/rover3.jpg?webp&h=200&w=240&fit=cover&metadata';
-	import rover4 from '$lib/assets/rover4.jpg?webp&h=200&w=240&fit=cover&metadata';
+	import rover1 from '$lib/assets/rover1.jpg?webp&h=200&w=200&fit=cover&metadata';
+	import rover2 from '$lib/assets/rover2.jpg?webp&h=200&w=200&fit=cover&metadata';
+	import rover3 from '$lib/assets/rover3.jpg?webp&h=200&w=200&fit=cover&metadata';
+	import rover4 from '$lib/assets/rover4.jpg?webp&h=200&w=200&fit=cover&metadata';
+	import Card from '$lib/components/Card.svelte';
 
 	type Content = {
 		id: number;
@@ -16,30 +17,30 @@
 		{
 			id: 1,
 			img: rover1,
-			heading: 'Feature 1',
+			heading: 'Collision Avoidance',
 			alt: 'Feature 1',
-			text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus egestas sed sed risus pretium. Enim sed faucibus turpis in eu mi bibendum neque egestas. Nascetur ridiculus mus mauris vitae ultricies leo. Quam vulputate dignissim suspendisse in est ante. Volutpat odio facilisis mauris sit amet massa vitae tortor condimentum. Nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices. Urna cursus eget nunc scelerisque viverra mauris. Eget arcu dictum varius duis at consectetur lorem donec massa. Eu facilisis sed odio morbi quis commodo odio aenean. Aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat.'
+			text: 'Built with four time of flight sensors made by ST electronics to detect obstacles faster. These sensors have improved accuracy and range in outdoor environments when compared to ultrasonic sensors.'
 		},
 		{
 			id: 2,
 			img: rover2,
-			heading: 'Feature 2',
+			heading: 'GPRS',
 			alt: 'Feature 2',
-			text: 'Velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus. Sodales neque sodales ut etiam sit amet. Dui nunc mattis enim ut tellus elementum. At tellus at urna condimentum mattis pellentesque. Ante in nibh mauris cursus. Ligula ullamcorper malesuada proin libero nunc consequat. Lobortis mattis aliquam faucibus purus in massa tempor nec feugiat. Fames ac turpis egestas integer eget aliquet nibh praesent tristique. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Eu volutpat odio facilisis mauris sit amet massa vitae tortor. Amet justo donec enim diam. Vel eros donec ac odio tempor orci. Vitae tempus quam pellentesque nec nam.'
+			text: 'Integrated with GPRS module for remote operation of UGV. GPRS also enables better throughput along with range for message queues.'
 		},
 		{
 			id: 3,
 			img: rover3,
-			heading: 'Feature 3',
+			heading: 'GPS',
 			alt: 'Feature 3',
-			text: 'Sed lectus vestibulum mattis ullamcorper velit. A diam sollicitudin tempor id eu nisl nunc mi. Lectus urna duis convallis convallis tellus id interdum velit. Ac tortor vitae purus faucibus ornare suspendisse sed nisi. Donec ac odio tempor orci dapibus ultrices in iaculis nunc. Turpis egestas sed tempus urna et pharetra. Sed risus ultricies tristique nulla aliquet. Mi eget mauris pharetra et ultrices neque ornare aenean. Turpis egestas sed tempus urna et pharetra pharetra massa. Vulputate enim nulla aliquet porttitor lacus luctus accumsan. Feugiat scelerisque varius morbi enim. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend. Purus in mollis nunc sed id semper risus. Venenatis cras sed felis eget velit aliquet sagittis id consectetur.'
+			text: 'Incorporated with GPS module to get exact position and for remote tracking the UGV when not in Line of Sight (LOS).'
 		},
 		{
 			id: 4,
 			img: rover4,
-			heading: 'Feature 4',
+			heading: 'Rechargeable',
 			alt: 'Feature 4',
-			text: 'Sed enim ut sem viverra aliquet eget sit amet. Odio euismod lacinia at quis risus sed vulputate. At lectus urna duis convallis convallis tellus id interdum. Condimentum vitae sapien pellentesque habitant morbi. Leo vel orci porta non pulvinar neque laoreet suspendisse interdum. Viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor. Ultricies integer quis auctor elit sed. Vivamus at augue eget arcu dictum varius. Nisi est sit amet facilisis magna etiam tempor. Ante in nibh mauris cursus. Commodo viverra maecenas accumsan lacus vel facilisis.'
+			text: 'Lithium-ion battery powers the UGV for longer operating time. Such batteries have higher capacity to weight ratio.'
 		}
 	];
 </script>
@@ -54,16 +55,9 @@
 		RhoVar is an Unmanned Ground Vehicle prototype capable of carrying out remote operation and environment monitoring.
 	</p>
 </div>
-<h1>Features</h1>
-<div class="content">
+<div class="feats">
 	{#each contents as c (c.id)}
-		<div>
-			<img src={c.img.src} width={c.img.width} height={c.img.height} alt={c.alt} />
-			<div>
-				<h3>{c.heading}</h3>
-				<p>{c.text}</p>
-			</div>
-		</div>
+		<Card heading={c.heading} desc={c.text} src={c.img.src} />
 	{/each}
 </div>
 
@@ -85,35 +79,23 @@
 		text-align: center;
 	}
 
-	h1 {
-		text-align: center;
-		padding-top: 1em;
-		text-decoration: dashed underline;
-		font-size: 36px;
-		font-weight: 600;
-	}
-
 	.hero :first-child {
 		font-size: 40px;
 		font-weight: 700;
 	}
 
-	.content {
+	.feats {
 		padding: 4em;
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5em;
 		align-items: center;
 		flex-direction: column;
 	}
 
-	@media only screen and (min-width: 600px) {
-		.content > div {
-			display: flex;
-			width: 100%;
-			height: 30vh;
-			flex-direction: row;
-			justify-content: space-evenly;
-			align-items: center;
-			gap: 4em;
+	@media only screen and (max-width: 900px) {
+		.feats {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
