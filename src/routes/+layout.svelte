@@ -47,6 +47,8 @@
 		--nav-item-inactive: hsla(0, 0%, 0%, 0.4);
 		--nav-item-disabled: hsla(0, 0%, 0%, 0.15);
 		--text-primary-color: hsla(0, 0%, 0%, 1);
+		--main-grad-start: hsl(240deg 66% 56%);
+		--main-grad-end: hsl(158deg 96% 59%);
 	}
 
 	:global(*) {
@@ -57,6 +59,10 @@
 
 	:global(body) {
 		margin-top: 84px;
+	}
+
+	:global(body::-webkit-scrollbar) {
+		display: none;
 	}
 
 	header {
@@ -70,7 +76,7 @@
 	.color-strip {
 		height: 16px;
 		z-index: 10;
-		background: linear-gradient(90deg, hsl(46, 95%, 56%), hsl(350, 97%, 65%));
+		background: linear-gradient(45deg, var(--main-grad-start), var(--main-grad-end));
 	}
 
 	.title {

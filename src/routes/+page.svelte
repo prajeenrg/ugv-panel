@@ -3,7 +3,6 @@
 	import rover2 from '$lib/assets/rover2.jpg?webp&h=200&w=240&fit=cover&metadata';
 	import rover3 from '$lib/assets/rover3.jpg?webp&h=200&w=240&fit=cover&metadata';
 	import rover4 from '$lib/assets/rover4.jpg?webp&h=200&w=240&fit=cover&metadata';
-	import { text } from 'svelte/internal';
 
 	type Content = {
 		id: number;
@@ -50,9 +49,9 @@
 </svelte:head>
 
 <div class="hero">
-	<p>The MIT Rover is here!!!!!</p>
+	<p>RhoVar: The UGV Prototype</p>
 	<p>
-		MIT Rover is an Unmanned Ground Vehicle capable of remote operation and environment monitoring.
+		RhoVar is an Unmanned Ground Vehicle prototype capable of carrying out remote operation and environment monitoring.
 	</p>
 </div>
 <h1>Features</h1>
@@ -71,14 +70,14 @@
 <style>
 	.hero {
 		width: 100%;
-		height: 40vh;
+		height: 60vh;
 		padding: 2em;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
 		justify-content: center;
-		gap: 4px;
-		background: linear-gradient(15deg, hsl(46, 95%, 56%), hsl(350, 97%, 65%));
+		gap: 1em;
+		background: linear-gradient(45deg, var(--main-grad-start), var(--main-grad-end));
 		backdrop-filter: blur(6px);
 		color: hsl(0, 0%, 100%);
 		text-shadow: 0px 2px 10px hsla(0, 0%, 0%, 0.2);
