@@ -1,8 +1,8 @@
 <script lang="ts">
-	import rover1 from '$lib/assets/rover1.jpg?webp&h=200&w=200&fit=cover&metadata';
-	import rover2 from '$lib/assets/rover2.jpg?webp&h=200&w=200&fit=cover&metadata';
-	import rover3 from '$lib/assets/rover3.jpg?webp&h=200&w=200&fit=cover&metadata';
-	import rover4 from '$lib/assets/rover4.jpg?webp&h=200&w=200&fit=cover&metadata';
+	import rover1 from '$lib/assets/vl53l0x.png?&webph=200&w=200&fit=cover&metadata';
+	import rover2 from '$lib/assets/sim800l.png?webp&h=200&w=200&fit=cover&metadata';
+	import rover3 from '$lib/assets/neo6m.png?webp&h=200&w=200&fit=cover&metadata';
+	import rover4 from '$lib/assets/mpu6500.png?webp&h=200&w=200&fit=cover&metadata';
 	import Card from '$lib/components/Card.svelte';
 
 	type Content = {
@@ -38,9 +38,9 @@
 		{
 			id: 4,
 			img: rover4,
-			heading: 'Rechargeable',
+			heading: 'Three Axis Gyro',
 			alt: 'Feature 4',
-			text: 'Lithium-ion battery powers the UGV for longer operating time. Such batteries have higher capacity to weight ratio.'
+			text: 'Uses gyroscope to get the orientation of the UGV. Gyroscope is also used to make steering mechanism easier.'
 		}
 	];
 </script>

@@ -24,6 +24,10 @@
         box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
     }
 
+    .card img {
+        background-color: hsl(237, 100%, 87%);
+    }
+
     .content {
         display: flex;
         flex-direction: column;
