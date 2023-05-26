@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { setupClient, disconnectClient } from '../mqtthelper';
-	import { connection, accel, gps, gyro, lidar, motor, network } from '../mqtthelper';
+	import { connection, accel, gps, gyro, lidar, motor, network, dht } from '../mqtthelper';
 	import { onMount, onDestroy } from 'svelte';
 	import Dpad from '$lib/components/Dpad.svelte';
 	import InfoSnippet from '$lib/components/InfoSnippet.svelte';
@@ -15,12 +15,11 @@
 </svelte:head>
 
 <div class="content">
+{#if $connection}
 	<div class="infobox">
-		<InfoSnippet title="lidar" contents={Object.entries($lidar)} />
-		<InfoSnippet title="motor" contents={Object.entries($motor)} />
-		<InfoSnippet title="gyro" contents={Object.entries($gyro)} />
-		<InfoSnippet title="Accelerometer" contents={Object.entries($accel)} />
-		<InfoSnippet title="Network" contents={Object.entries($network)} />
+		<InfoSnippet title="lidar (MM)" contents={Object.entries($lidar)} />
+		<InfoSnippet title="motor (RPM)" contents={Object.entries($motor)} />
+		<InfoSnippet title="Network" row={true} contents={Object.entries($network)} />
 	</div>
 	<div class="mid">
 		<iframe
@@ -29,10 +28,19 @@
 			loading="lazy"
 			referrerpolicy="no-referrer-when-downgrade"
 		/>
+		<InfoSnippet title="dht" contents={Object.entries($dht)} />
 	</div>
 	<div class="dpadbox">
-		<Dpad bind:isConnActive={$connection} />
+		<InfoSnippet title="gyro  (dps)" contents={Object.entries($gyro)} />
+		<InfoSnippet title="Accelerometer (g)" contents={Object.entries($accel)} />
+		<Dpad />
 	</div>
+{:else}
+	<div>
+		<p>Could not locate UGV</p>
+		<p>Please wait until the connection is established</p>
+	</div>
+{/if}
 </div>
 
 <style>
@@ -41,24 +49,29 @@
 		padding: 1em;
 		justify-items: center;
 		align-items: center;
+		align-items: start;
 	}
 
 	.infobox {
 		display: flex;
-		height: 100%;
-		widows: 100%;
+		width: 100%;
+		padding: 1em;
 		justify-content: space-evenly;
 		flex-direction: column;
 	}
 
 	.mid {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
-		height: 75vh;
+		height: 100%;
+		padding: 1em;
+		gap: 0.5em;
 	}
 
 	.mid > iframe {
 		width: 100%;
-		height: 100%;
+		height: 35%;
 		border: none;
 		box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 		margin: 0.5em;
@@ -74,5 +87,8 @@
 	.dpadbox {
 		width: 100%;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		padding: 1em;
 	}
 </style>

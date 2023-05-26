@@ -11,6 +11,7 @@ const TOPIC_INFO_MOTOR = `${TOPIC_PREFIX}/info/motor`;
 const TOPIC_INFO_GYRO = `${TOPIC_PREFIX}/info/gyro`;
 const TOPIC_INFO_ACCEL = `${TOPIC_PREFIX}/info/accel`;
 const TOPIC_INFO_NETWORK = `${TOPIC_PREFIX}/info/network`;
+const TOPIC_INFO_DHT = `${TOPIC_PREFIX}/info/dht`;
 const TOPIC_CONTROL = `${TOPIC_PREFIX}/control`;
 const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection`;
 
@@ -46,6 +47,11 @@ type AccelData = {
 	accelZ: number;
 };
 
+type DhtData = {
+	temp: number;
+	humid: number;
+};
+
 type NetworkData = {
 	strength: number;
 	operator: string;
@@ -62,6 +68,7 @@ export const setupClient = async () => {
 	client.subscribe(TOPIC_INFO_MOTOR);
 	client.subscribe(TOPIC_INFO_GYRO);
 	client.subscribe(TOPIC_INFO_ACCEL);
+	client.subscribe(TOPIC_INFO_DHT);
 	client.subscribe(TOPIC_CONNECT_READY);
 	console.info('Subscribed to topics successfully');
 	// handle messages
@@ -91,6 +98,8 @@ const handleMessages = (topic: string, message: any) => {
 			case TOPIC_INFO_NETWORK:
 				network.update(() => JSON.parse(msg));
 				break;
+			case TOPIC_INFO_DHT:
+				dht.update(() => JSON.parse(msg));
 			case TOPIC_CONNECT_READY:
 				connection.update(() => JSON.parse(msg));
 				break;
@@ -138,6 +147,11 @@ export const lidar = writable(<LidarData>{
 	back: 0,
 	left: 0,
 	right: 0
+});
+
+export const dht = writable(<DhtData>{
+	temp: 0,
+	humid: 0
 });
 
 export const network = writable(<NetworkData>{

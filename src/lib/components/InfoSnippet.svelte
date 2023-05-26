@@ -1,11 +1,12 @@
 <script lang="ts">
 	export let title = '';
+	export let row = false;
 	export let contents: [string, string | number][] = [];
 </script>
 
 <div class="infobox">
 	<p>{title}</p>
-	<div class="info">
+	<div class="info" style="{ row ? 'flex-direction: column' : 'flex-direction: row' }">
 		{#each contents as item, i (i)}
 			<div>
 				<p>{item[1]}</p>

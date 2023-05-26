@@ -31,6 +31,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@jdiamond/mqtt-browser": "^0.1.2"
+		"@jdiamond/mqtt-browser": "^0.1.2",
+		"chart.js": "^4.3.0",
+		"svelte-chartjs": "^3.1.2"
 	}
 }
