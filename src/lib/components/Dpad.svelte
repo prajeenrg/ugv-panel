@@ -15,12 +15,12 @@
 
 	onMount(() => {
 		let options = {
-			internalFillColor: "#440055",
+			internalFillColor: "#FFEB3B",
 			internalLineWidth: 4,
-			externalStrokeColor: "#990077",
-			externalLineWidth: 8,
-			height: 300,
-			width: 300
+			externalStrokeColor: "#000000",
+			externalLineWidth: 4,
+			height: 360,
+			width: 360
 		}
 
 		let processStickData = (data: typeof StickStatus) => {
@@ -122,10 +122,6 @@
 <div id="joystick"></div>
 
 <style>
-	:root {
-		--status-active: hsl(120, 80%, 55%);
-		--status-inactive: hsl(0, 80%, 55%);
-	}
 
 	#joystick {
 		width: 100%;

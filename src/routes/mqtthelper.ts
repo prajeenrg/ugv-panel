@@ -1,5 +1,5 @@
 import { Client } from '@jdiamond/mqtt-browser';
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 // constant variables
 const BROKER_URL = 'wss://test.mosquitto.org:8081';
@@ -31,15 +31,15 @@ type GpsData = {
 };
 
 type GyroData = {
-	gyroX: number;
-	gyroY: number;
-	gyroZ: number;
+	x: number;
+	y: number;
+	z: number;
 };
 
 type AccelData = {
-	accelX: number;
-	accelY: number;
-	accelZ: number;
+	x: number;
+	y: number;
+	z: number;
 };
 
 type DhtData = {
@@ -53,6 +53,21 @@ type NetworkData = {
 	ipaddr: string;
 	imei: string;
 };
+
+type VelocityData = {
+	x: number;
+	y: number;
+	z: number;
+};
+
+type AngleData = {
+	x: number;
+	y: number;
+	z: number;
+}
+
+const gyroTime = writable(0);
+const accelTime = writable(0);
 
 export const setupClient = async () => {
 	await client.connect();
@@ -70,18 +85,56 @@ export const setupClient = async () => {
 };
 
 const handleMessages = (topic: string, message: any) => {
+	const curr = Date.now();
+	let delta: number;
 	let msg = String.fromCharCode(...message);
 	console.log(`Received ${msg} on topic ${topic}`);
 	try {
 		switch (topic) {
 			case TOPIC_INFO_ACCEL:
-				accel.update(() => JSON.parse(msg));
+				accel.update(() => {
+					let c = JSON.parse(msg);
+					return <AccelData>{
+						x: c.accelX * 981,
+						y: c.accelY * 981,
+						z: c.accelZ * 981
+					};
+				});
+				if (get(accelTime) == 0) {
+					accelTime.update(() => curr);
+					return;
+				}
+				delta = (curr - get(accelTime)) / 1000;
+				let currAccel = get(accel);
+				velocity.update(() => <VelocityData>{
+					x: (currAccel.x * delta),
+					y: (currAccel.y * delta),
+					z: (currAccel.z * delta)
+				});
 				break;
 			case TOPIC_INFO_GPS:
 				gps.update(() => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_GYRO:
-				gyro.update(() => JSON.parse(msg));
+				gyro.update(() => {
+					let c = JSON.parse(msg);
+					return <GyroData>{
+						x: c.gyroX,
+						y: c.gyroY,
+						z: c.gyroZ
+					};
+				});
+				if (get(gyroTime) == 0) {
+					gyroTime.update(() => curr);
+					return;
+				}
+				delta = (curr - get(gyroTime)) / 1000;
+				let currGyro = get(gyro);
+				angle.update(data => <AngleData>{
+					x: (data.x + (delta * currGyro.x)),
+					y: (data.y + (delta * currGyro.y)),
+					z: (data.z + (delta * currGyro.z))
+				});
 				break;
 			case TOPIC_INFO_LIDAR:
 				lidar.update(() => JSON.parse(msg));
@@ -112,15 +165,15 @@ export const disconnectClient = async () => {
 export const status = writable("");
 
 export const accel = writable(<AccelData>{
-	accelX: 0,
-	accelY: 0,
-	accelZ: 0
+	x: 0,
+	y: 0,
+	z: 0
 });
 
 export const gyro = writable(<GyroData>{
-	gyroX: 0,
-	gyroY: 0,
-	gyroZ: 0
+	x: 0,
+	y: 0,
+	z: 0
 });
 
 export const gps = writable(<GpsData>{
@@ -145,6 +198,18 @@ export const network = writable(<NetworkData>{
 	operator: '-',
 	ipaddr: '-',
 	imei: '-'
+});
+
+export const velocity = writable(<VelocityData>{
+	x: 0,
+	y: 0,
+	z: 0
+});
+
+export const angle = writable(<AngleData>{
+	x: 0,
+	y: 0,
+	z: 0
 });
 
 export const Constants = {
