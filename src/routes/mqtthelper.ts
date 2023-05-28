@@ -7,13 +7,13 @@ const BROKER_URL = 'wss://test.mosquitto.org:8081';
 const TOPIC_PREFIX = 'c83929b2-c031-11ed-afa1-0242ac120002';
 const TOPIC_INFO_LIDAR = `${TOPIC_PREFIX}/info/lidar`;
 const TOPIC_INFO_GPS = `${TOPIC_PREFIX}/info/gps`;
-const TOPIC_INFO_MOTOR = `${TOPIC_PREFIX}/info/motor`;
 const TOPIC_INFO_GYRO = `${TOPIC_PREFIX}/info/gyro`;
 const TOPIC_INFO_ACCEL = `${TOPIC_PREFIX}/info/accel`;
 const TOPIC_INFO_NETWORK = `${TOPIC_PREFIX}/info/network`;
 const TOPIC_INFO_DHT = `${TOPIC_PREFIX}/info/dht`;
 const TOPIC_CONTROL = `${TOPIC_PREFIX}/control`;
-const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection`;
+const TOPIC_CONNECT_READY = `${TOPIC_PREFIX}/connection/status`;
+const TOPIC_PING = `${TOPIC_PREFIX}/connection/ping`;
 
 export const client = new Client({ url: BROKER_URL });
 
@@ -30,11 +30,6 @@ type GpsData = {
 	longitude: number;
 };
 
-type MotorData = {
-	leftSpeed: number;
-	rightSpeed: number;
-};
-
 type GyroData = {
 	gyroX: number;
 	gyroY: number;
@@ -48,15 +43,15 @@ type AccelData = {
 };
 
 type DhtData = {
-	temp: number;
-	humid: number;
+	temperature: number;
+	humidity: number;
 };
 
 type NetworkData = {
 	strength: number;
 	operator: string;
-	localIP: string;
-	voltage: number;
+	ipaddr: string;
+	imei: string;
 };
 
 export const setupClient = async () => {
@@ -65,7 +60,6 @@ export const setupClient = async () => {
 	console.info(`Connected to MQTT Broker at ${BROKER_URL} successfully`);
 	client.subscribe(TOPIC_INFO_LIDAR);
 	client.subscribe(TOPIC_INFO_GPS);
-	client.subscribe(TOPIC_INFO_MOTOR);
 	client.subscribe(TOPIC_INFO_GYRO);
 	client.subscribe(TOPIC_INFO_ACCEL);
 	client.subscribe(TOPIC_INFO_DHT);
@@ -92,16 +86,13 @@ const handleMessages = (topic: string, message: any) => {
 			case TOPIC_INFO_LIDAR:
 				lidar.update(() => JSON.parse(msg));
 				break;
-			case TOPIC_INFO_MOTOR:
-				motor.update(() => JSON.parse(msg));
-				break;
 			case TOPIC_INFO_NETWORK:
 				network.update(() => JSON.parse(msg));
 				break;
 			case TOPIC_INFO_DHT:
 				dht.update(() => JSON.parse(msg));
 			case TOPIC_CONNECT_READY:
-				connection.update(() => JSON.parse(msg));
+				status.update(() => msg);
 				break;
 			default:
 				console.info('Unknown topic...');
@@ -118,7 +109,7 @@ export const disconnectClient = async () => {
 	console.info('Disconnected from MQTT Broker');
 };
 
-export const connection = writable(false);
+export const status = writable("");
 
 export const accel = writable(<AccelData>{
 	accelX: 0,
@@ -137,11 +128,6 @@ export const gps = writable(<GpsData>{
 	longitude: 0
 });
 
-export const motor = writable(<MotorData>{
-	leftSpeed: 0,
-	rightSpeed: 0
-});
-
 export const lidar = writable(<LidarData>{
 	front: 0,
 	back: 0,
@@ -150,15 +136,15 @@ export const lidar = writable(<LidarData>{
 });
 
 export const dht = writable(<DhtData>{
-	temp: 0,
-	humid: 0
+	temperature: 0,
+	humidity: 0
 });
 
 export const network = writable(<NetworkData>{
 	strength: 0,
 	operator: '-',
-	localIP: '-',
-	voltage: 0
+	ipaddr: '-',
+	imei: '-'
 });
 
 export const Constants = {
@@ -168,7 +154,8 @@ export const Constants = {
 	TOPIC_INFO_GYRO,
 	TOPIC_INFO_ACCEL,
 	TOPIC_INFO_LIDAR,
-	TOPIC_INFO_MOTOR,
+	TOPIC_INFO_DHT,
+	TOPIC_PING,
 	TOPIC_CONTROL,
 	TOPIC_CONNECT_READY
 };

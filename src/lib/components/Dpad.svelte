@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { JoyStick, StickStatus } from './joy';
-	import { client, Constants, motor } from '../../routes/mqtthelper';
+	import { client, Constants } from '../../routes/mqtthelper';
 	import { onMount } from 'svelte';
 
 	let motorControl = {
 		left: 0,
 		right: 0,
-		rev: false
+		rev: false,
+		cleft: false,
+		cfront: false,
+		cback: false,
+		cright: false
 	}
 
 	onMount(() => {
@@ -20,51 +24,90 @@
 		}
 
 		let processStickData = (data: typeof StickStatus) => {
+			const x = Math.ceil(2.55 * Math.abs(data.x));
+			const y = Math.ceil(2.55 * Math.abs(data.y));
+
 			switch (data.cardinalDirection) {
 				case 'N':
-					motorControl.left = 255;
-					motorControl.right = 255;
+					motorControl.left = y;
+					motorControl.right = y;
 					motorControl.rev = false;
+					motorControl.cleft = false;
+					motorControl.cfront = true;
+					motorControl.cback = false;
+					motorControl.cright = false;
 					break;
 				case 'S':
-					motorControl.left = 255;
-					motorControl.right = 255;
+					motorControl.left = y;
+					motorControl.right = y;
 					motorControl.rev = true;
+					motorControl.cleft = false;
+					motorControl.cfront = false;
+					motorControl.cback = true;
+					motorControl.cright = false;
 					break;
 				case 'E':
-					motorControl.left = 255;
+					motorControl.left = x;
 					motorControl.right = 0;
 					motorControl.rev = false;
+					motorControl.cleft = false;
+					motorControl.cfront = false;
+					motorControl.cback = false;
+					motorControl.cright = true;
 					break;
 				case 'W':
 					motorControl.left = 0;
-					motorControl.right = 255;
+					motorControl.right = x;
 					motorControl.rev = false;
+					motorControl.cleft = true;
+					motorControl.cfront = false;
+					motorControl.cback = false;
+					motorControl.cright = false;
 					break;
 				case 'NE':
-					motorControl.left = 255;
-					motorControl.right = 128;
+					motorControl.left = x;
+					motorControl.right = y;
 					motorControl.rev = false;
+					motorControl.cleft = false;
+					motorControl.cfront = true;
+					motorControl.cback = false;
+					motorControl.cright = true;
 					break;
 				case 'NW':
-					motorControl.left = 128;
-					motorControl.right = 255;
+					motorControl.left = y;
+					motorControl.right = x;
 					motorControl.rev = false;
+					motorControl.cleft = true;
+					motorControl.cfront = true;
+					motorControl.cback = false;
+					motorControl.cright = false;
 					break;
 				case 'SW':
-					motorControl.left = 128;
-					motorControl.right = 255;
+					motorControl.left = y;
+					motorControl.right = x;
 					motorControl.rev = true;
+					motorControl.cleft = true;
+					motorControl.cfront = false;
+					motorControl.cback = true;
+					motorControl.cright = false;
 					break;
 				case 'SE':
-					motorControl.left = 255;
-					motorControl.right = 128;
+					motorControl.left = x;
+					motorControl.right = y;
 					motorControl.rev = true;
+					motorControl.cleft = false;
+					motorControl.cfront = false;
+					motorControl.cback = true;
+					motorControl.cright = true;
 					break;
 				default:
 					motorControl.left = 0;
 					motorControl.right = 0;
 					motorControl.rev = false;
+					motorControl.cleft = false;
+					motorControl.cfront = false;
+					motorControl.cback = false;
+					motorControl.cright = false;
 			}
 			console.info(motorControl);
 			client.publish(Constants.TOPIC_CONTROL, JSON.stringify(motorControl));

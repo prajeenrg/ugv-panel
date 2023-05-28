@@ -64,8 +64,8 @@
 <style>
 	.hero {
 		width: 100%;
-		height: 60vh;
-		padding: 2em;
+		height: 18vh;
+		padding: 1em;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
@@ -75,12 +75,12 @@
 		backdrop-filter: blur(6px);
 		color: hsl(0, 0%, 100%);
 		text-shadow: 0px 2px 10px hsla(0, 0%, 0%, 0.2);
-		font-size: 18px;
+		font-size: 16px;
 		text-align: center;
 	}
 
 	.hero :first-child {
-		font-size: 40px;
+		font-size: 28px;
 		font-weight: 700;
 	}
 

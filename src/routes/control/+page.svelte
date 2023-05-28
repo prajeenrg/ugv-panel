@@ -1,13 +1,30 @@
 <script lang="ts">
 	import { setupClient, disconnectClient } from '../mqtthelper';
-	import { connection, accel, gps, gyro, lidar, motor, network, dht } from '../mqtthelper';
+	import { client, status, Constants, accel, gps, gyro, lidar, network, dht } from '../mqtthelper';
 	import { onMount, onDestroy } from 'svelte';
 	import Dpad from '$lib/components/Dpad.svelte';
 	import InfoSnippet from '$lib/components/InfoSnippet.svelte';
+	import { get } from 'svelte/store';
 
-	onMount(setupClient);
+	let rand: string;
+	let ping: number;
+	let pingCheck: number;
+	let connection = false;
 
-	onDestroy(disconnectClient);
+	onMount(async () => {
+		setupClient();
+		ping = setInterval(() => {
+			clearTimeout(pingCheck);
+			rand = JSON.stringify(Math.random());
+			client.publish(Constants.TOPIC_PING, rand);
+			pingCheck = setTimeout(() => connection = (get(status) == rand), 500);
+		}, 2000);
+	});
+
+	onDestroy(async () => {
+		clearInterval(ping);
+		disconnectClient();
+	});
 </script>
 
 <svelte:head>
@@ -15,10 +32,9 @@
 </svelte:head>
 
 <div class="content">
-{#if $connection}
+{#if connection}
 	<div class="infobox">
 		<InfoSnippet title="lidar (MM)" contents={Object.entries($lidar)} />
-		<InfoSnippet title="motor (RPM)" contents={Object.entries($motor)} />
 		<InfoSnippet title="Network" row={true} contents={Object.entries($network)} />
 	</div>
 	<div class="mid">
@@ -36,15 +52,14 @@
 		<Dpad />
 	</div>
 {:else}
-	<div>
-		<p>Could not locate UGV</p>
-		<p>Please wait until the connection is established</p>
-	</div>
+	<h4>Please wait until the connection is established</h4>
 {/if}
 </div>
 
 <style>
 	.content {
+		height: 100%;
+		width: 100%;
 		display: grid;
 		padding: 1em;
 		justify-items: center;
