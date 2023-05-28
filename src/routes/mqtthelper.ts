@@ -79,6 +79,7 @@ export const setupClient = async () => {
 	client.subscribe(TOPIC_INFO_ACCEL);
 	client.subscribe(TOPIC_INFO_DHT);
 	client.subscribe(TOPIC_CONNECT_READY);
+	client.subscribe(TOPIC_INFO_NETWORK);
 	console.info('Subscribed to topics successfully');
 	// handle messages
 	client.on('message', handleMessages);
