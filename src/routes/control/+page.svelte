@@ -6,6 +6,9 @@
 	import InfoSnippet from '$lib/components/InfoSnippet.svelte';
 	import { get } from 'svelte/store';
 	import { page } from '$app/stores';
+	import {browser} from "$app/environment";
+
+	const searchParams = browser && $page.url.searchParams
 
 	let rand: string;
 	let ping: number;
@@ -33,7 +36,7 @@
 </svelte:head>
 
 <div class="content">
-{#if $page.url.searchParams.get('debug') == 'true' || connection}
+{#if searchParams && searchParams.get('debug') == 'true' || connection}
 	<div class="infobox">
 		<InfoSnippet title="lidar" round={false} units={['(mm)','(mm)','(mm)','(mm)']} contents={Object.entries($lidar)} />
 		<InfoSnippet title="dht" units={['(°C)','(%)']} contents={Object.entries($dht)} />
