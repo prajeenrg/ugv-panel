@@ -21,8 +21,8 @@
 			clearTimeout(pingCheck);
 			rand = JSON.stringify(Math.random());
 			client.publish(Constants.TOPIC_PING, rand);
-			pingCheck = setTimeout(() => connection = (get(status) == rand), 500);
-		}, 2000);
+			pingCheck = setTimeout(() => connection = (get(status) == rand), 1500);
+		}, 10000);
 	});
 
 	onDestroy(async () => {
